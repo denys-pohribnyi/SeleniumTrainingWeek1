@@ -1,0 +1,1 @@
+{"uuid":"bbe3134a-2324-4521-bbcd-ddd98c3792da","name":"SeleniumTraining","children":["0ff04df6-ceaa-4507-9de0-bf9fec3568dc"],"befores":[],"afters":[{"name":"clearCookiesLocalStorage","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1636056734133,"stop":1636056734151}],"links":[],"start":1636056732322,"stop":1636056734152}
