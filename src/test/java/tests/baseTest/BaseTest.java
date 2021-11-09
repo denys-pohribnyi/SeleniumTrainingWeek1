@@ -21,8 +21,6 @@ public class BaseTest {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         driver.manage().deleteAllCookies();
         jsExecutor.executeScript("window.sessionStorage.clear()");
-        //driver.quit();
+        driver.quit();
     }
-
-
 }
