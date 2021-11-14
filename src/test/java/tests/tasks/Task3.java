@@ -8,11 +8,12 @@ public class Task3 extends BaseTest {
     public void loginAsManager() {
         basePage.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
         basePage.loginAsBankManager();
-        bankManagerAccountPage.openAccount();
-        bankManagerAccountPage.selectingName("Harry Potter");
-        bankManagerAccountPage.selectingCurrency("Dollar");
-        bankManagerAccountPage.processingAccountCreation();
-        bankManagerAccountPage.checkingAccountWasCreated();
+        bankManagerAccountPage
+                .openAccount()
+                .selectingName("Harry Potter")
+                .selectingCurrency("Dollar")
+                .processingAccountCreation()
+                .checkingAccountWasCreated();
     }
 }
 //3. Открыть сайт

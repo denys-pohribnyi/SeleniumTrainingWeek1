@@ -1,16 +1,15 @@
 package pages;
-
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class BasePage {
     protected WebDriver driver;
 
     public BasePage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
@@ -18,33 +17,35 @@ public class BasePage {
         driver.get(url);
     }
 
-    @FindBy(xpath = "//button[normalize-space()='Customer Login']")
-    private WebElement typeOfUserForLogin;
-    @FindBy(xpath = "//select[@id='userSelect']")
-    private WebElement selectingNameField;
-    @FindBy(xpath = "//*[@id=\"userSelect\"]/option[3]")
-    private WebElement nameInTheUsersList;
-    @FindBy(xpath = "//button[@type='submit']")
-    private WebElement loginButton;
-    @FindBy(xpath = "//button[normalize-space()='Bank Manager Login']")
-    private WebElement loginAsBankManagerButton;
+    private final By typeOfUserForLogin = By.xpath("//button[normalize-space()='Customer Login']");
+    private final By selectingNameField = By.xpath("//select[@id='userSelect']");
+    private final By nameInTheUsersList = By.xpath("//*[@id=\"userSelect\"]/option[3]");
+    private final By loginButton = By.xpath("//button[@type='submit']");
+    private final By loginAsBankManagerButton = By.xpath("//button[normalize-space()='Bank Manager Login']");
 
-    public void choosingUserType() {
-        typeOfUserForLogin.click();
+    public WebElement waitCustom (WebElement element){
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(element));
+        return element;
     }
 
-    public void selectingUserName() {
-        selectingNameField.click();
-        nameInTheUsersList.click();
+    public BasePage choosingUserType() {
+        driver.findElement(typeOfUserForLogin).click();
+        return this;
     }
 
-    public AccountPage loginButtonClick() {
-        loginButton.click();
-        return new AccountPage(driver);
+    public BasePage selectingUserName() {
+        driver.findElement(selectingNameField).click();
+        driver.findElement(nameInTheUsersList).click();
+        return this;
+    }
+
+    public BasePage loginButtonClick() {
+        driver.findElement(loginButton).click();
+        return this;
     }
 
     public BankManagerAccountPage loginAsBankManager() {
-        loginAsBankManagerButton.click();
+        driver.findElement(loginAsBankManagerButton).click();
         return new BankManagerAccountPage(driver);
     }
 

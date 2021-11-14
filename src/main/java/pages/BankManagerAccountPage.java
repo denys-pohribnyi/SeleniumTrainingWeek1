@@ -3,107 +3,99 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-
 import java.util.List;
 
 public class BankManagerAccountPage extends BasePage {
     public BankManagerAccountPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
-
     private String alertInfo;     // Переменная для хранения информации из алерта в котором содержится ID
 
-    @FindBy(xpath = "//button[normalize-space()='Add Customer']")
-    private WebElement addCustomerButton;
-    @FindBy(xpath = "//input[@placeholder='First Name']")
-    private WebElement firstNameField;
-    @FindBy(xpath = "//input[@placeholder='Last Name']")
-    private WebElement lastNameField;
-    @FindBy(xpath = "//input[@placeholder='Post Code']")
-    private WebElement postCodeField;
-    @FindBy(xpath = "//button[@type='submit']")
-    private WebElement addCustomerAfterFillingForm;
+    private final By addCustomerButton = By.xpath("//button[normalize-space()='Add Customer']");
+    private final By firstNameField = By.xpath("//input[@placeholder='First Name']");
+    private final By lastNameField = By.xpath("//input[@placeholder='Last Name']");
+    private final By postCodeField = By.xpath("//input[@placeholder='Post Code']");
+    private final By addCustomerAfterFillingForm = By.xpath("//button[@type='submit']");
+    private final By customersList = By.xpath("/html/body/div/div/div[2]/div/div[1]/button[3]");
+    private final By searchCustomerField = By.xpath("//input[@placeholder='Search Customer']");
+    private final By openAccountButton = By.xpath("/html/body/div/div/div[2]/div/div[1]/button[2]");
+    private final By customerNameDropDownMenu = By.xpath("//*[@id=\"userSelect\"]");
+    private final By customerCurrencyDropDownMenu = By.xpath("//*[@id=\"currency\"]");
+    private final By processButton = By.xpath("/html/body/div/div/div[2]/div/div[2]/div/div/form/button");
 
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[1]/button[3]")
-    private WebElement customersList;
-    @FindBy(xpath = "//input[@placeholder='Search Customer']")
-    private WebElement searchCustomerField;
-
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[1]/button[2]")
-    private WebElement openAccountButton;
-    @FindBy(xpath = "//*[@id=\"userSelect\"]")
-    private WebElement customerNameDropDownMenu;
-    @FindBy(xpath = "//*[@id=\"currency\"]")
-    private WebElement customerCurrencyDropDownMenu;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/form/button")
-    private WebElement processButton;
-
-    public void addNewCustomer() {
-        addCustomerButton.click();
+    public BankManagerAccountPage addNewCustomer() {
+        driver.findElement(addCustomerButton).click();
+        return this;
     }
 
-    public void AddingNewCustomer(String firstName, String lastName, String postCode) {
-        firstNameField.sendKeys(firstName);
-        lastNameField.sendKeys(lastName);
-        postCodeField.sendKeys(postCode);
+    public BankManagerAccountPage AddingNewCustomer(String firstName, String lastName, String postCode) {
+        driver.findElement(firstNameField).sendKeys(firstName);
+        driver.findElement(lastNameField).sendKeys(lastName);
+        driver.findElement(postCodeField).sendKeys(postCode);
+        return this;
     }
 
-    public void acceptingNewCustomer() {
-        addCustomerAfterFillingForm.click();
+    public BankManagerAccountPage acceptingNewCustomer() {
+        driver.findElement(addCustomerAfterFillingForm).click();
         driver.switchTo().alert().accept();
         driver.switchTo().defaultContent();
+        return this;
     }
 
-    public void checkingCreatedCustomerInTheList(String firstName) {
-        customersList.click();
-        searchCustomerField.sendKeys(firstName);
+    public BankManagerAccountPage checkingCreatedCustomerInTheList(String firstName) {
+        driver.findElement(customersList).click();
+        driver.findElement(searchCustomerField).sendKeys(firstName);
         WebElement result = driver.findElement(By.cssSelector("tbody td:nth-child(1)"));
         boolean customerIsPresentInTheList = result.isDisplayed();
         Assert.assertTrue(customerIsPresentInTheList);
+        return this;
     }
 
-    public void openAccount() {
-        openAccountButton.click();
+    public BankManagerAccountPage openAccount() {
+        driver.findElement(openAccountButton).click();
+        return this;
     }
 
-    public void selectingName(String name) {
-        Select dropdownName = new Select(customerNameDropDownMenu);
+    public BankManagerAccountPage selectingName(String name) {
+        Select dropdownName = new Select(driver.findElement(customerNameDropDownMenu));
         dropdownName.selectByVisibleText(name);
+        return this;
     }
 
-    public void selectingCurrency(String currency) {
-        Select dropdownCurrency = new Select(customerCurrencyDropDownMenu);
+    public BankManagerAccountPage selectingCurrency(String currency) {
+        Select dropdownCurrency = new Select(driver.findElement(customerCurrencyDropDownMenu));
         dropdownCurrency.selectByVisibleText(currency);
+        return this;
     }
 
-    public void processingAccountCreation() {
-        processButton.click();
+    public BankManagerAccountPage processingAccountCreation() {
+        driver.findElement(processButton).click();
         alertInfo = driver.switchTo().alert().getText();
         System.out.println(alertInfo);
         driver.switchTo().alert().accept();
         driver.switchTo().defaultContent();
+        return this;
     }
 
-    public void checkingAccountWasCreated() {
+    public BankManagerAccountPage checkingAccountWasCreated() {
         String[] splittedAlertInfo = alertInfo.split(":");
-        customersList.click();
-        searchCustomerField.sendKeys(splittedAlertInfo[1]);   // Поиск по айдишнику который сохраняли в переменную
+        driver.findElement(customersList).click();
+        driver.findElement(searchCustomerField).sendKeys(splittedAlertInfo[1]);   // Поиск по айдишнику который сохраняли в переменную
         WebElement resultOfSearchByAccountID = driver.findElement(By.cssSelector("tbody td:nth-child(1)"));
         boolean customerIsPresentInTheList = resultOfSearchByAccountID.isDisplayed();
         Assert.assertTrue(customerIsPresentInTheList);   // Проверка есть ли он в списке по поиску
+        return this;
     }
 
-    public void removingAllAccounts() {
-        customersList.click();  // Используем коллекцию элементов чтобы записать их и потом удалить все
+    public BankManagerAccountPage removingAllAccounts() {
+        driver.findElement(customersList).click();  // Используем коллекцию элементов чтобы записать их и потом удалить все
         List<WebElement> listOfUsers = driver.findElements(By.xpath("//tr[contains(@class,'ng-scope')]"));
         for (WebElement t : listOfUsers) {
             System.out.println(t.getText());
             t.findElement(By.xpath("//button[contains(text(),'Delete')]")).click();
         }
+        return this;
     }
 }

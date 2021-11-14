@@ -7,22 +7,22 @@ public class Task1 extends BaseTest {
     @Test
     public void loginTest() {
         basePage.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
-        basePage.choosingUserType();
-        basePage.selectingUserName();
-        basePage.loginButtonClick();
+        basePage.choosingUserType()
+                .selectingUserName()
+                .loginButtonClick();
         accountPage.nameIsPresent();
     }
 
     @Test(dependsOnMethods = {"loginTest"})
     public void depositTest() {
-        accountPage.performingDeposit();
-        accountPage.checkingBalanceAfterDeposit();
+        accountPage.performingDeposit("1000");
+        accountPage.checkingBalanceAfterDeposit("1000");
     }
 
     @Test(dependsOnMethods = {"depositTest"})
     public void withdrawTest() {
-        accountPage.performingWithdraw();
-        accountPage.checkingBalanceAfterWithdraw();
+        accountPage.performingWithdraw("900");
+        accountPage.checkingBalanceAfterWithdraw("100");
     }
 
     @Test(dependsOnMethods = {"withdrawTest"})
@@ -33,15 +33,37 @@ public class Task1 extends BaseTest {
 }
 
 
-//Домашка:
-//1. Открыть сайт
-// https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login
-//Залогиниться как Customer (for ex Harry Potter)
-//Зайти в Deposit, положить 1000 на депозит
-//Зайти в Withdraw, снять 900
-//Зайти в Transactions удалить все записи
-// //select[@id='userSelect']     select button
-// //*[@id="userSelect"]/option[3]     harry potter
-//    //button[@type='submit']      loginButton
-//    /html/body/div/div/div[2]/div/div[1]/strong
+//public class BaseTest {
 //
+//    static WebDriver driver;
+//    private static ThreadLocal<WebDriver> WEBDRIVER_CONTAINER = new ThreadLocal<WebDriver>();
+//
+//    @BeforeClass
+//    public static void setupClass(){
+//        WebDriverManager.chromedriver().setup();
+//    }
+//
+//    @BeforeMethod
+//    public void setup(){
+//
+//        // System.setProperty("webdriver.chrome.driver", "src/main/resources/Drivers/chromedriver.exe");
+//        driver = new ChromeDriver();
+//        driver.manage().window().maximize();
+//        WEBDRIVER_CONTAINER.set(driver);
+//
+//    }
+//
+//    public static WebDriver getDriver(){
+//        return WEBDRIVER_CONTAINER.get();
+//    }
+//
+//    @AfterMethod
+//    public void quit(){
+//
+//        if (driver !=null){
+//            driver.manage().deleteAllCookies();
+//            driver.quit();
+//            WEBDRIVER_CONTAINER.remove();
+//        }
+//    }
+//}

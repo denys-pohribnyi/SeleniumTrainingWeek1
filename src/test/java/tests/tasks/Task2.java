@@ -12,9 +12,10 @@ public class Task2 extends BaseTest {
 
     @Test(dependsOnMethods = {"loginAsManager"})
     public void addingNewCustomer() {
-        bankManagerAccountPage.addNewCustomer();
-        bankManagerAccountPage.AddingNewCustomer("Denys", "Pohribnyi", "18000");
-        bankManagerAccountPage.acceptingNewCustomer();
+        bankManagerAccountPage
+                .addNewCustomer()
+                .AddingNewCustomer("Denys", "Pohribnyi", "18000")
+                .acceptingNewCustomer();
     }
 
     @Test(dependsOnMethods = {"addingNewCustomer"})

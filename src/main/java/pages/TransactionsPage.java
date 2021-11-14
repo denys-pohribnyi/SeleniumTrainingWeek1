@@ -1,22 +1,19 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class TransactionsPage extends BasePage {
 
     public TransactionsPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[1]/button[2]")
-    private WebElement resetTransactionsButton;
+    private final By resetTransactionsButton = By.xpath("/html/body/div/div/div[2]/div/div[1]/button[2]");
 
-    public void reset() {
-        resetTransactionsButton.click();
+    public TransactionsPage reset() {
+        driver.findElement(resetTransactionsButton).click();
+        return this;
     }
 
 }
