@@ -8,9 +8,7 @@ import org.testng.Assert;
 import java.util.List;
 
 public class BankManagerAccountPage extends BasePage {
-    public BankManagerAccountPage(WebDriver driver) {
-        super(driver);
-    }
+
     private String alertInfo;     // Переменная для хранения информации из алерта в котором содержится ID
 
     private final By addCustomerButton = By.xpath("//button[normalize-space()='Add Customer']");
@@ -24,6 +22,10 @@ public class BankManagerAccountPage extends BasePage {
     private final By customerNameDropDownMenu = By.xpath("//*[@id=\"userSelect\"]");
     private final By customerCurrencyDropDownMenu = By.xpath("//*[@id=\"currency\"]");
     private final By processButton = By.xpath("/html/body/div/div/div[2]/div/div[2]/div/div/form/button");
+
+    public BankManagerAccountPage(WebDriver driver) {
+        super();
+    }
 
     public BankManagerAccountPage addNewCustomer() {
         driver.findElement(addCustomerButton).click();

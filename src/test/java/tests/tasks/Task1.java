@@ -1,13 +1,20 @@
 package tests.tasks;
 
 import org.testng.annotations.Test;
+import pages.AccountPage;
+import pages.LoginPage;
+import pages.TransactionsPage;
 import tests.baseTest.BaseTest;
 
 public class Task1 extends BaseTest {
+    LoginPage loginPage = new LoginPage(getDriver());
+    AccountPage accountPage = new AccountPage(getDriver());
+    TransactionsPage transactionsPage = new TransactionsPage(getDriver());
+
     @Test
     public void loginTest() {
-        basePage.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
-        basePage.choosingUserType()
+        getDriver().get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+        loginPage.choosingUserType()
                 .selectingUserName()
                 .loginButtonClick();
         accountPage.nameIsPresent();

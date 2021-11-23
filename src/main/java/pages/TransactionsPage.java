@@ -5,11 +5,11 @@ import org.openqa.selenium.WebDriver;
 
 public class TransactionsPage extends BasePage {
 
-    public TransactionsPage(WebDriver driver) {
-        super(driver);
-    }
-
     private final By resetTransactionsButton = By.xpath("/html/body/div/div/div[2]/div/div[1]/button[2]");
+
+    public TransactionsPage(WebDriver driver) {
+        super();
+    }
 
     public TransactionsPage reset() {
         driver.findElement(resetTransactionsButton).click();

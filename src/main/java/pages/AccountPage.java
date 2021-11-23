@@ -6,9 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class AccountPage extends BasePage {
-    public AccountPage(WebDriver driver) {
-        super(driver);
-    }
+
 
     private final By userNameAfterLogin = By.xpath("/html/body/div/div/div[2]/div/div[1]/strong/span");
     private final By depositButton = By.xpath("//button[normalize-space()='Deposit']");
@@ -19,6 +17,10 @@ public class AccountPage extends BasePage {
     private final By amountOfWithdraw = By.xpath("/html/body/div/div/div[2]/div/div[4]/div/form/div/input");
     private final By performingWithdrawAction = By.xpath("/html/body/div/div/div[2]/div/div[4]/div/form/button");
     private final By transactionsButton = By.xpath("/html/body/div/div/div[2]/div/div[3]/button[1]");
+
+    public AccountPage(WebDriver driver) {
+        super();
+    }
 
 
     public AccountPage nameIsPresent() {

@@ -1,13 +1,18 @@
 package tests.tasks;
 
 import org.testng.annotations.Test;
+import pages.BankManagerAccountPage;
+import pages.BasePage;
+import pages.LoginPage;
 import tests.baseTest.BaseTest;
 
 public class Task2 extends BaseTest {
+    LoginPage loginPage = new LoginPage(getDriver());
+    BankManagerAccountPage bankManagerAccountPage = new BankManagerAccountPage(getDriver());
     @Test
     public void loginAsManager() {
-        basePage.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
-        basePage.loginAsBankManager();
+        getDriver().get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+        loginPage.loginAsBankManager();
     }
 
     @Test(dependsOnMethods = {"loginAsManager"})
